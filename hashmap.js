@@ -1,31 +1,42 @@
-export const hashmap = (function(){
+/* if (index < 0 || index >= buckets.length) {
+  throw new Error("Trying to access index out of bounds");
+} */
 
-    let capacity = 16;
-    let loadFactor = 0.75;
+  const hashMap = (function(){
+	let capacity = 0;
+	let loadFactor = 0;
+	const hashArray = [];
+	
+	//hashes input into corresponding output
+	function hash(key){
+		let code = 0;
+		const primeNumber = 17;
+		for(let i = 0;i < key.length;i++){
+			code = primeNumber * (code + key.charCodeAt(i));
+			code = code%16;
+		}
+		return code;
+	}
+	
+	//check for key and insert key and value
+	function set(key,value){
+		const code = hash(key); //generate hash code from given key
+		if(hashArray[code] !== undefined){
+			
+		}
+	}
+	
+	//return value at index or null 
+	function get(key){
+		
+	}
+	
+	//
+	//check for
 
-    // function for hashing key into corresponding output
-    function hash(key){
-        let code = 0;
-        const primeNumber = 11;
-        for(let i = 0;i < key.length;i++){
-            code = primeNumber * (code + key.charCodeAt(i));
-        }
-        return code;
-    }
+	return{
+		hash,
+	}
+})();
 
-    // set key,value pair in key index
-    function set(key,value){
-
-    }
-
-    // return value at key index
-    function get(key){
-
-    }
-
-    // length
-
-    return{
-        hash,
-    }
-})
+console.log(hashMap.hash("Shineav"))
