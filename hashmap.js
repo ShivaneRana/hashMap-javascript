@@ -1,3 +1,5 @@
+import {node,linkedList} from "./linkedList.js";
+
 const hashMap = (function(){
 	let capacity = 16;
 	let loadFactor = 0.75;
@@ -14,8 +16,13 @@ const hashMap = (function(){
 		}
 		return code;
 	}
+	
 
 	function set(key,value){
+		const currentCapacity = capacity * loadFactor;
+		if(currentCapacity <= length){
+		
+		}else{
 		const index = hash(key);
 		if(hashArray[index] === undefined){
 			hashArray[index] = {key:key,value:value};
@@ -23,11 +30,14 @@ const hashMap = (function(){
 		}
 		else{
 			hashArray[index] = {key:key,value:value};
-		}
+		}}
 	}
+	
 
 	return{
 		hash,
+		length,
+		set,
 	}
 })();
 
