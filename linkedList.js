@@ -27,6 +27,35 @@ export class linkedList{
 		}
 	}
 
+	// check if a key exist
+	contains(key){
+		let temp = this.head;
+		while(temp !== null){
+			if(temp.key === key){
+				return true;
+			}
+			temp = temp.nextNode;
+		}
+		return false;
+	}
+
+	//find the index of paticular key
+	findIndex(key){
+		let index = 0;
+		if(this.head.key === key){
+			return 0;
+		}else{
+			let temp = list.head;
+			while(temp !== null){
+				if(temp.key === key) return index;
+				temp = temp.nextNode;
+				++index;
+			}
+		}
+
+		return null;
+	}
+
 	//return head
 	getHead(){
 		return this.head;
@@ -99,3 +128,4 @@ list.append("shivane",21);
 list.append("Anuj",212);
 list.append("Priyanshu",356);
 list.append("Akshit",676);
+console.log(list.findIndex("Akshit12"));
