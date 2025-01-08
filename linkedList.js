@@ -27,6 +27,19 @@ export class linkedList{
 		}
 	}
 
+	//insert a value in a paticular index
+	insertValueAt(value,index){
+		let temp = this.head;
+		if(index === 0){
+			this.head.value = value;
+		}else{
+			for(let i = 0;i < index;i++){
+				temp = temp.nextNode;
+			}
+			temp.value = value;
+		}
+	}
+
 	// check if a key exist
 	contains(key){
 		let temp = this.head;
@@ -45,14 +58,14 @@ export class linkedList{
 		if(this.head.key === key){
 			return 0;
 		}else{
-			let temp = list.head;
+			let temp = this.head;
 			while(temp !== null){
 				if(temp.key === key) return index;
 				temp = temp.nextNode;
 				++index;
 			}
 		}
-
+		console.log("the key does not exist");
 		return null;
 	}
 
@@ -110,7 +123,7 @@ export class linkedList{
 
 	// get the size of the linkedlist
 	getSize() {
-		return size;
+		return this.size;
 	}
 
 	//display the entire linked list
@@ -128,4 +141,3 @@ list.append("shivane",21);
 list.append("Anuj",212);
 list.append("Priyanshu",356);
 list.append("Akshit",676);
-console.log(list.findIndex("Akshit12"));
