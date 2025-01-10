@@ -125,24 +125,56 @@ class hashMap{
 		return this.keysValuesArray;
 	}
 
+	remove(key) {
+		const hashCode = this.hash(key);
+		const bucket = this.arr[hashCode];
+		let current = bucket.head;
+		let previous = null;
+	
+		while (current !== null) {
+			if (current.key === key) {
+				if (previous === null) {
+					// If the node to be removed is the head
+					bucket.head = current.nextNode;
+				} else {
+					// Skip over the current node
+					previous.nextNode = current.nextNode;
+				}
+	
+				// Update arrays and hashmap length
+				const index = this.keysArray.indexOf(key);
+				if (index !== -1) {
+					this.keysArray.splice(index, 1);
+					this.valuesArray.splice(index, 1);
+					this.keysValuesArray.splice(index, 1);
+				}
+				this.length--;
+				console.log(`${key} has been removed.`);
+				return current.value;
+			}
+	
+			previous = current;
+			current = current.nextNode;
+		}
+		return null;
+	}
+	
+
 	display(){
 		return this.arr;
 	}
 }
 
 const test = new hashMap();
-test.set('apple', 'red')
-test.set('banana', 'yellow')
-test.set('carrot', 'orange')
-test.set('dog', 'brown')
-test.set('elephant', 'gray')
-test.set('frog', 'green')
-test.set('grape', 'purple')
-test.set('hat', 'black')
-test.set('ice cream', 'white')
-test.set('jacket', 'blue')
-test.set('kite', 'pink')
-test.set('lion', 'golden')
-console.log(test.keys());
-console.log(test.values());
-console.log(test.entries());
+// test.set('apple', 'red')
+// test.set('banana', 'yellow')
+// test.set('carrot', 'orange')
+// test.set('dog', 'brown')
+// test.set('elephant', 'gray')
+// test.set('frog', 'green')
+// test.set('grape', 'purple')
+// test.set('hat', 'black')
+// test.set('ice cream', 'white')
+// test.set('jacket', 'blue')
+// test.set('kite', 'pink')
+// test.set('lion', 'golden')

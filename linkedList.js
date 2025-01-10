@@ -126,6 +126,7 @@ export class linkedList{
 		return this.size;
 	}
 
+
 	//display the entire linked list
 	display(){
 		let temp = this.head;
