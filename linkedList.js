@@ -19,15 +19,15 @@ export class linkedList{
 		if(this.head === null){
 			this.head = newNode;
 			this.tail = newNode;
-			++this.size;
 		}else{
 			this.tail.nextNode = newNode;
 			this.tail = newNode;
-			++this.size;
 		}
+		++this.size;
 	}
 
 	//insert a value in a paticular index
+	//utilized when the index and key are same
 	insertValueAt(value,index){
 		let temp = this.head;
 		if(index === 0){
@@ -56,7 +56,7 @@ export class linkedList{
 	findIndex(key){
 		let index = 0;
 		if(this.head.key === key){
-			return 0;
+			return index;
 		}else{
 			let temp = this.head;
 			while(temp !== null){
@@ -135,9 +135,3 @@ export class linkedList{
 		}
 	}
 }
-
-const list = new linkedList();
-list.append("shivane",21);
-list.append("Anuj",212);
-list.append("Priyanshu",356);
-list.append("Akshit",676);
