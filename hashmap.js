@@ -1,10 +1,13 @@
 import { linkedList, node } from "./linkedList.js";
 
 class hashMap{
-	constructor(capacity = 5){
+	constructor(capacity = 16){
 		this.capacity = capacity;
 		this.loadFactor = 0.75;
 		this.length = 0;
+		this.keysArray = [];
+		this.valuesArray = []
+		this.keysValuesArray = [];
 		this.arr = new Array(this.capacity).fill(null).map(() => new linkedList());
 	}
 
@@ -29,6 +32,9 @@ class hashMap{
 		const hashcode = this.hash(key);
 		if(!(this.arr[hashcode].contains(key))){ //if the value is not contained 
 			this.arr[hashcode].append(key,value);
+			this.keysArray.push(key);
+			this.valuesArray.push(value);
+			this.keysValuesArray.push([key, value]);
 			++this.length;
 			console.log("New value was added~");
 		}else{
@@ -42,6 +48,9 @@ class hashMap{
 		const newCapacity = this.capacity*2;
 		const newArray = new Array(newCapacity).fill(null).map(item => new linkedList()); //double the capacity of the old array
 		this.length = 0;
+		this.keysArray = [];
+		this.valuesArray = [];
+		this.keysValuesArray = [];
 		this.capacity = newCapacity;
 
 		//go through each bucket and rehash the keys
@@ -51,6 +60,9 @@ class hashMap{
 				while(temp !== null){
 					const hashcode = this.hash(temp.key) % newCapacity;
 					newArray[hashcode].append(temp.key,temp.value);
+					this.keysArray.push(temp.key);
+					this.valuesArray.push(temp.value);
+					this.keysValuesArray.push([temp.key, temp.value]);
 					++this.length;
 					temp = temp.nextNode;
 				}
@@ -60,12 +72,28 @@ class hashMap{
 		this.arr = newArray;
 	}
 
-	remove(key){
-		const hashcode = this.hash(key);
-		if(this.arr[hashcode].contains(key)){
-			
-		}
+	// if the hashMap contains the key return true else false
+	has(key){
+		const hashCode = this.hash(key);
+		if(this.arr[hashCode].contains(key)) return true;
 		return false;
+	}
+
+	//return the value of the key
+	get(key){
+		if(this.has(key) === false){
+			return null;
+		}
+		const hashCode = this.hash(key);
+		const bucket = this.arr[hashCode];
+		let temp = bucket.head;
+		while(temp !== null){
+			if(temp.key === key){
+				return temp.value;
+			}
+			temp = temp.nextNode;
+		}
+
 	}
 
 	//return the numner of stored keys
@@ -82,7 +110,20 @@ class hashMap{
 		console.log("hashmap cleared");
 	}
 
+	//return all the keys present in the hashmap
+	keys(){
+		return this.keysArray;
+	}
+	
+	//return all the values present in the hashmap
+	values(){
+		return this.valuesArray;
+	}
 
+	//return all the keys and values in the hashmap in pair
+	entries(){
+		return this.keysValuesArray;
+	}
 
 	display(){
 		return this.arr;
@@ -90,8 +131,18 @@ class hashMap{
 }
 
 const test = new hashMap();
-test.set("shivane",1);
-test.set('anuj',123);
-test.set("sameer",32);
-test.set("manas",90);
-console.log(test.remove("salkdjfl"));
+test.set('apple', 'red')
+test.set('banana', 'yellow')
+test.set('carrot', 'orange')
+test.set('dog', 'brown')
+test.set('elephant', 'gray')
+test.set('frog', 'green')
+test.set('grape', 'purple')
+test.set('hat', 'black')
+test.set('ice cream', 'white')
+test.set('jacket', 'blue')
+test.set('kite', 'pink')
+test.set('lion', 'golden')
+console.log(test.keys());
+console.log(test.values());
+console.log(test.entries());
